@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# Entrar no diretório da pasta1
 cd "$(dirname "$0")"
 
-# Iterar sobre todos os arquivos em pasta1
-
 for FILE in *; do
-    # Verificar se o arquivo não é o próprio script
     if [[ "$FILE" != "doLinks" ]]; then
-        # Criar link simbólico em pasta2
         ln -s "$(realpath "$FILE")" "$HOME/bin/$FILE"
     fi
 done
