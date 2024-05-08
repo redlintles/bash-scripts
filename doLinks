@@ -1,14 +1,26 @@
 #!/bin/bash
 
-# Entrar no diretório da pasta1
 cd "$(dirname "$0")"
 
-# Iterar sobre todos os arquivos em pasta1
+noFiles=1
+
+if [[ ! -d "$HOME/bin"  ]] then
+	echo "Folder  $HOME/bin don't exists, create it manually and add to PATH"
+	exit 1;
+fi
 
 for FILE in *; do
-    # Verificar se o arquivo não é o próprio script
-    if [[ "$FILE" != "doLinks" ]]; then
-        # Criar link simbólico em pasta2
-        ln -s "$(realpath "$FILE")" "$HOME/bin/$FILE"
+    if [[ "$FILE" != "doLinks" && "$FILE" != "LICENSE" && "$FILE" != "README.md" ]] then
+       	noFiles=0
+	ln -s "$(realpath "$FILE")" "$HOME/bin/$FILE"
     fi
 done
+
+if [[ $noFiles = 1 ]] then
+	echo "No Links to make, since there are no scripts"
+	exit 1;
+fi
+
+
+echo "Links Created successfully"
+exit 0;
