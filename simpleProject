@@ -1,0 +1,97 @@
+#!/usr/bin/python3
+
+import os
+import sys
+from pathlib import Path
+import argparse
+
+def main():
+    parser = argparse.ArgumentParser(
+        prog="Simple Project" ,
+        description="Creates a simple HTML,CSS,JS project in the specified path"
+    )
+    parser.add_argument("-d","--destination",help="Destination Path for project")
+    parser.add_argument("-n","--name", help="Project Name")
+
+    args = parser.parse_args()
+    
+    if not args.destination:
+        print("Destination path not specified")
+        exit(1)
+    
+    destPath = ""
+    
+    name = args.name if args.name else "DefaultProjectName"
+    
+    if len(sys.argv) > 1:
+        if args.destination != ".":
+            destPath = Path(args.destination).expanduser().resolve()
+        else:
+            destPath = Path(f"./{name}").resolve()
+    else: 
+        print("Usage simpleProject -d <path> -n <name>")
+        exit(1)    
+    
+    if not destPath.exists():
+        print("Folder does not exists, creating folder %s"%destPath)
+        destPath.mkdir(parents=True)
+    
+    os.chdir(destPath)
+    
+    html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{name}</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <h1>{name}</h1>
+</body>
+</html> 
+'''
+    
+    css = '''* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, sans-serif;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}  
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}    
+'''
+    
+    js = f'''alert("{name}")'''
+    
+    os.mkdir("css")
+    os.mkdir("js")
+    
+    with open("./index.html", "w") as htmlFile:
+        htmlFile.write(html)
+        
+    with open("./css/style.css","w") as cssFile:
+        cssFile.write(css)
+    
+    with open("./js/script.js","w") as jsFile:
+        jsFile.write(js)   
+
+    print("Project Created Successfuly at: ",destPath)
+    
+    exit(0)
+
+main()
+
