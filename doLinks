@@ -10,7 +10,7 @@ if [[ ! -d "$HOME/bin"  ]] then
 fi
 
 for FILE in *; do
-    if [[ "$FILE" != "doLinks" && "$FILE" != "LICENSE" && "$FILE" != "README.md" ]] then
+    if [[ "$FILE" != "doLinks" && "$FILE" != "LICENSE" && "$FILE" != "README"* ]] then
        	noFiles=0
 	ln -s "$(realpath "$FILE")" "$HOME/bin/$FILE"
     fi
