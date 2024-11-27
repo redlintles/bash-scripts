@@ -1,0 +1,81 @@
+#!/usr/bin/python3
+
+import sys
+import os
+
+from argparse import ArgumentParser
+
+folder = sys.argv[1]
+
+class YmlJoin():
+
+    @staticmethod
+    def parse_files(files):
+        return files.split(":")
+
+    def read_input(self,files):
+        output = ""
+        for fileIndex in range(len(files)):
+            
+            if "deployment" in files[fileIndex].lower():
+                continue
+            try:
+                with open(files[fileIndex],"r") as file:
+                    output+= file.read()
+                    output+= "---\n"
+
+            except FileNotFoundError:
+                print("Arquivo %s não encontrado"%files[fileIndex])   
+                sys.exit(1)
+                
+        for fileIndex in range(len(files)):
+            
+            if "deployment" not in files[fileIndex].lower():
+                continue
+            try:
+                with open(files[fileIndex],"r") as file:
+                    output+= file.read()
+                    output+= "---\n"
+
+            except FileNotFoundError:
+                print("Arquivo %s não encontrado"%files[fileIndex])   
+                sys.exit(1)
+                
+                
+        if output.endswith("---\n"):
+            output = output[:-4]
+                
+        return output
+
+    def __init__(self):
+        self.arg_parser = ArgumentParser(description="Um programa para concatenar arquivos .yml em um único. Se deployment estiver presente no nome do arquivo, eles serão concatenados por último, tendo em vista que esse script foi feito especialmente para trabalhar com kubernetes de forma declarativa")
+
+        self.arg_parser.add_argument("-o", "--output", type=str, help = "Especifica o arquivo de saída", required=True)
+
+        group = self.arg_parser.add_mutually_exclusive_group(required = True)
+        group.add_argument("-i", "--input",type= str, help= "Especifica o diretório onde os arquivos de entrada estão")
+        group.add_argument("-f","--files", type= self.parse_files, help ="Especifica uma lista de arquivos de entrada separada por dois pontos")
+
+        self.process_data()
+    def process_data(self):
+        args = self.arg_parser.parse_args()
+
+        output = ""
+
+        if args.files:
+            output = self.read_input(args.files)
+
+        elif args.input:
+            try:
+                files = os.listdir(args.input)
+                fileNames = [args.input + "/" + x for x in files]
+                output = self.read_input(fileNames)
+            except FileNotFoundError:
+                print("Diretório %s não encontrado"%args.input)
+                sys.exit(1)
+
+        with open("./%s.yaml"%args.output, "w") as outputFile:
+            outputFile.write(output)
+            print("Conteúdo escrito com sucesso")
+
+YmlJoin()
