@@ -115,13 +115,13 @@ class YmlJoin():
         if args.files:
             output = self.read_input(args.files)
 
-        elif args.input:
+        elif args.directory:
             try:
-                files = os.listdir(args.input)
-                fileNames = [args.input + "/" + x for x in files]
+                files = os.listdir(args.directory)
+                fileNames = [args.directory + "/" + x for x in files]
                 output = self.read_input(fileNames)
             except FileNotFoundError:
-                print("Diretório %s não encontrado"%args.input)
+                print("Diretório %s não encontrado"%args.directory)
                 sys.exit(1)
                 
         output = output.replace("---\n"*2,"---\n")
