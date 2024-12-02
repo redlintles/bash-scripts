@@ -128,9 +128,9 @@ class YmlJoin():
         
         filename = args.output
         
-        if filename.count(".yaml") > 1:
-            l1 = list(args.output)
-            filename = "".join(l1[0: l1.index(".")])
+        if ".yaml" in filename:
+            filename = filename.replace(".yaml","")
+            
             
             
 
