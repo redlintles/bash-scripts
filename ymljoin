@@ -66,31 +66,14 @@ class YmlJoin():
         
         files = self.order_files(files)
         for fileIndex in range(len(files)):
-            
-            if "deployment" in files[fileIndex].lower():
-                continue
             try:
                 with open(files[fileIndex],"r") as file:
                     output+= file.read()
-                    output+= "---\n"
+                    output+= "\n---\n"
 
             except FileNotFoundError:
                 print("Arquivo %s não encontrado"%files[fileIndex])   
                 sys.exit(1)
-                
-        for fileIndex in range(len(files)):
-            
-            if "deployment" not in files[fileIndex].lower():
-                continue
-            try:
-                with open(files[fileIndex],"r") as file:
-                    output+= file.read()
-                    output+= "---\n"
-
-            except FileNotFoundError:
-                print("Arquivo %s não encontrado"%files[fileIndex])   
-                sys.exit(1)
-                
                 
         if output.endswith("---\n"):
             output = output[:-4]
