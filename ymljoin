@@ -12,9 +12,59 @@ class YmlJoin():
     @staticmethod
     def parse_files(files):
         return files.split(":")
+    
+    def order_files(self,files):
+        # Definir a ordem dos tipos de objetos Kubernetes
+        tipo_prioridade = {
+            "namespace": 1,
+            "configmap": 2,
+            "secret": 2,
+            "role": 3,
+            "rolebinding": 3,
+            "service": 4,
+            "deployment": 5,
+            "statefulset": 5,
+            "daemonset": 5
+        }
+
+        # Organizar arquivos por tipo de objeto Kubernetes
+        ordered_files = {
+            "namespace": [],
+            "configmap": [],
+            "secret": [],
+            "role": [],
+            "rolebinding": [],
+            "service": [],
+            "deployment": [],
+            "statefulset": [],
+            "daemonset": [],
+            "outros": []
+        }
+
+        # Classificar arquivos em categorias
+        for file in files:
+            file_lower = file.lower()
+            added = False
+            for tipo in tipo_prioridade:
+                if tipo in file_lower:
+                    ordered_files[tipo].append(file)
+                    added = True
+                    break
+            if not added:
+                ordered_files["outros"].append(file)
+
+        # Concatenar os arquivos na ordem correta de prioridade
+        result = []
+        for tipo in sorted(ordered_files, key=lambda x: tipo_prioridade.get(x, 99)):
+            result.extend(ordered_files[tipo])
+
+        return result
+        
 
     def read_input(self,files):
         output = ""
+        
+        files = self.order_files(files)
         for fileIndex in range(len(files)):
             
             if "deployment" in files[fileIndex].lower():
@@ -53,7 +103,7 @@ class YmlJoin():
         self.arg_parser.add_argument("-o", "--output", type=str, help = "Especifica o arquivo de saída", required=True)
 
         group = self.arg_parser.add_mutually_exclusive_group(required = True)
-        group.add_argument("-i", "--input",type= str, help= "Especifica o diretório onde os arquivos de entrada estão")
+        group.add_argument("-d", "--directory",type= str, help= "Especifica o diretório onde os arquivos de entrada estão")
         group.add_argument("-f","--files", type= self.parse_files, help ="Especifica uma lista de arquivos de entrada separada por dois pontos")
 
         self.process_data()
@@ -75,8 +125,16 @@ class YmlJoin():
                 sys.exit(1)
                 
         output = output.replace("---\n"*2,"---\n")
+        
+        filename = args.output
+        
+        if filename.count(".yaml") > 1:
+            l1 = list(args.output)
+            filename = "".join(l1[0: l1.index(".")])
+            
+            
 
-        with open("./%s.yaml"%args.output, "w") as outputFile:
+        with open("./%s.yaml"%filename, "w") as outputFile:
             outputFile.write(output)
             print("Conteúdo escrito com sucesso")
 
