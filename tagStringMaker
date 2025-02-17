@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+
+def main():
+  tagArr = []
+  while True: 
+    inp = input("Digite H para ajuda >: ")
+    inp = inp.strip().lower()
+    if inp.startswith("#"):
+      inp = inp[1:]
+    if inp == "d":
+      print("#" + " #".join(tagArr))
+    elif inp == "t":
+      print(",".join(tagArr))
+    elif inp == "q":
+      break
+    elif inp == "h":
+      print("Digite uma nova tag ou as opções a seguir")
+      print("Digite 'q' para finalizar")
+      print("Digite 'd' para string de descrição")
+      print("Digite 't' para string de tag")
+      print("Digite 'h' para exibir essa mensagem de ajuda")
+      
+    else:
+      tagArr.append(inp)
+       
+if __name__ == "__main__":
+  main()
+    
+    
+  
+  
+
+  
