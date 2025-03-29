@@ -1,33 +1,34 @@
 #!/usr/bin/python3
 
 def main():
-  tagArr = []
-  while True: 
-    inp = input("Digite H para ajuda >: ")
-    inp = inp.strip().lower()
-    if inp.startswith("#"):
-      inp = inp[1:]
-    if inp == "d":
-      print("#" + " #".join(tagArr))
-    elif inp == "t":
-      print(",".join(tagArr))
-    elif inp == "q":
-      break
-    elif inp == "h":
-      print("Digite uma nova tag ou as opções a seguir")
-      print("Digite 'q' para finalizar")
-      print("Digite 'd' para string de descrição")
-      print("Digite 't' para string de tag")
-      print("Digite 'h' para exibir essa mensagem de ajuda")
-      
-    else:
-      tagArr.append(inp)
-       
-if __name__ == "__main__":
-  main()
+    tagArr = []
     
-    
-  
-  
+    while True:
+        inp = input("Digite H para ajuda >: ").strip().lower().lstrip("#")
 
-  
+        if inp == ":d":
+            print("#" + " #".join(dict.fromkeys(tagArr)))  # Remove duplicatas mantendo ordem
+        elif inp == ":t":
+            print(",".join(dict.fromkeys(tagArr)))  # Remove duplicatas mantendo ordem
+        elif inp == ":q":
+            break
+        elif inp == ":!":
+            if tagArr:
+                tagArr.pop()
+            else:
+                print("Nenhuma tag para remover.")
+        elif inp == ":h":
+            print("Digite uma nova tag ou as opções a seguir:")
+            print(":q  → Finalizar")
+            print(":d  → Gerar string de descrição (#tag1 #tag2 #tag3)")
+            print(":t  → Gerar string de tags (tag1,tag2,tag3)")
+            print(":!  → Remover a última tag")
+            print(":h  → Exibir esta mensagem de ajuda")
+            
+        elif inp.startswith(":"):
+          continue
+        else:
+            tagArr.append(inp)
+
+if __name__ == "__main__":
+    main()
