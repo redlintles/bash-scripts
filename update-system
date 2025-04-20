@@ -1,0 +1,54 @@
+#!/bin/bash
+
+log_file="/var/log/crontab-logs/update-logs.txt"
+timestamp="$(date '+%Y-%m-%d %H:%M:%S')"
+erro_ocorreu=false
+
+# Função para adicionar logs ao arquivo
+log() {
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | formatLog >>"$log_file" 2>&1
+}
+
+# Função para notificar em caso de erro
+notificar_erro() {
+  if command -v notify-send &>/dev/null; then
+    notify-send -u critical "Erro no update do sistema" "$1"
+  else
+    echo "notify-send não está instalado" >>"$log_file"
+  fi
+}
+
+log "===== Início da atualização ($timestamp) ====="
+
+# Etapa 1: apt update
+log "Executando apt update..."
+if ! apt update 2>&1 | tee -a "$log_file" | formatLog; then
+  erro_ocorreu=true
+  msg="apt update retornou erro. Verifique os repositórios."
+  log "[ERRO] $msg"
+  notificar_erro "$msg"
+else
+  log "apt update executado com sucesso."
+fi
+
+# Etapa 2: apt upgrade
+log "Executando apt upgrade..."
+if ! apt upgrade -y 2>&1 | tee -a "$log_file" | formatLog; then
+  erro_ocorreu=true
+  msg="apt upgrade falhou. Verifique os pacotes quebrados."
+  log "[ERRO] $msg"
+  notificar_erro "$msg"
+else
+  log "apt upgrade executado com sucesso."
+fi
+
+# Etapa 3: Finalização
+log "===== Fim da atualização ($(date '+%Y-%m-%d %H:%M:%S')) ====="
+echo "" | formatLog >>"$log_file" 2>&1
+
+# Saída final
+if [ "$erro_ocorreu" = true ]; then
+  exit 1
+else
+  exit 0
+fi
