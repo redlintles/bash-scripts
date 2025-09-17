@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+whoami_output=$(whoami);
+pwd_output=$(pwd);
+hostname_output=$(hostname);
+
+echo "User: $whoami_output";
+echo "Location: $pwd_output";
+echo "Machine: $hostname_output";
+
