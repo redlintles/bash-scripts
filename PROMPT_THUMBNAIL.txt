@@ -1,4 +1,4 @@
-Crie uma imagem num estilo 2d cartoonizado para ser inserida numa thumbnail de um vídeo tutorial shorts de propósito educativo cujo assunto é "__SUBJECT__", a imagem deve ter uma resolução de __RESOLUTION__ pixels para que encaixe na thumbnail corretamente, a thumbnail final terá proporção 9:16, e deve combinar com as cores __MODEL_BG_COLOR__ para o fundo e __MODEL_PRIMARY_COLOR__ como cor primária. e __MODEL_SECONDARY_COLOR__ como cor secundária.
+Crie uma imagem num estilo 2d cartoonizado para ser inserida numa thumbnail de um vídeo tutorial shorts de propósito educativo cujo assunto é "__SUBJECT__", a imagem deve ter uma resolução de __RESOLUTION__ pixels para que encaixe na thumbnail corretamente, a thumbnail final terá proporção __RATIO__, e deve combinar com as cores __MODEL_BG_COLOR__ para o fundo e __MODEL_PRIMARY_COLOR__ como cor primária. e __MODEL_SECONDARY_COLOR__ como cor secundária.
 
 Observações:
 
