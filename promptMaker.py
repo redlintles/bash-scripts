@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+import sys
+from pathlib import *
+
+def main():
+
+  fileParam: Path = Path(sys.argv[1] if len(sys.argv) > 1 else "./PROMPT_THUMBNAIL.txt")
+  
+  text_file = ""
+  with open(fileParam, "r") as file:
+    text_file = file.read()
+  
+  #Background, Primary Color, Secondary Color
+  thumb_patterns = {
+    "PURPLE_CYBER": ["#202020", "#651988", "#c171e4"],
+    "RED_LINUX": ["#202020", "#b30e0e", "#ff7759"],
+    "CYAN_NET": ["#202020", "#14bd6d", "#30cb7a"],
+    "LBLUE_SYSTEM": ["#202020", "#00a5bd", "#5ad7ef"],
+    "YELLOW_JS": ["#202020", "#cfcc00", "#fff900"],
+    "BROWN_RUST": ["#202020", "#754415", "#c97f30"],
+    "GREEN_GENERIC": ["#202020", "#098e1f", "#10bd10"],
+    "PINK_CWM": ["#202020", "#bd1482", "#ff20b7"],
+    "BLUE_PYTHON": ["#202020", "#0c2db4", "#6361ff"],
+    "WHITE_DATA": ["#202020", "#bfbfbf", "#cccccc"]
+  }
+  
+  params = {
+    "Assunto ": ["__SUBJECT__", "Afinal, o que é python? Aprenda em menos de 3 minutos!"],
+    "Resolução ": ["__RESOLUTION__", "900x800"],
+    "Modelo Thumb ": ["__THUMB_PALLETE__", "PURPLE_CYBER"]
+  }
+  
+  for i in params.keys():
+    p = input(i+f"({params[i][1]}): ")
+    
+    if params[i][0] != "__THUMB_PALLETE__":
+      text_file = text_file.replace(params[i][0], p or params[i][1])
+    else:
+      
+      try:  
+        p = p or params[i][1]
+        pallete = thumb_patterns[p] 
+        text_file = text_file.replace("__MODEL_BG_COLOR__", pallete[0])
+        text_file = text_file.replace("__MODEL_PRIMARY_COLOR__", pallete[1])
+        text_file = text_file.replace("__MODEL_SECONDARY_COLOR__", pallete[2])
+      
+      except:
+        raise ValueError("Thumb Value not supported")
+    
+      
+      
+  print(text_file)
+        
+    
+main()
+  
+  
+  

@@ -1,0 +1,19 @@
+Crie uma imagem num estilo 2d cartoonizado para ser inserida numa thumbnail de um vídeo tutorial shorts de propósito educativo cujo assunto é "__SUBJECT__", a imagem deve ter uma resolução de __RESOLUTION__ pixels para que encaixe na thumbnail corretamente, a thumbnail final terá proporção 9:16, e deve combinar com as cores __MODEL_BG_COLOR__ para o fundo e __MODEL_PRIMARY_COLOR__ como cor primária. e __MODEL_SECONDARY_COLOR__ como cor secundária.
+
+Observações:
+
+1- Se desejar inserir texto na arte gerada, faça isso em português(PT-BR) por favor. Além disso, não é necessário inserir todas as palavras que compõem o assunto na imagem. deixo isso sob sua decisão. Contudo, a inserção de texto não é obrigatória. Além disso, é essencial que o texto não contenha erros gramaticais.
+
+2- Você tem liberdade criativa para utilizar outras cores na arte, desde que combinem com as cores propostas anteriormente.
+
+3- A arte deve ser gerada sem o uso de degradês, apenas cores sólidas por favor.
+
+4- A arte deve ser minimalista e simples. num estilo 2D cartoonizado, sem muitas linhas ou curvas.
+
+5- Insira um personagem cartoonesco caricato de aparência amigável na thumbnail, ele deve usar óculos, e deve parecer convidar o espectador a assistir o vídeo sobre o assunto proposto.
+
+6- O fundo da imagem deve, obrigatoriamente, possuir a cor __MODEL_BG_COLOR__, para combinar com o fundo da thumbnail.
+
+7- A Imagem deve conter um elemento, arte, ou desenho simples que seja facilmente identificável com o assunto falado no vídeo. o estilo desse elemento deve ser um 2D minimalista e simples, sem degradês.
+
+
