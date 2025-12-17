@@ -24,13 +24,24 @@ def main():
     "WHITE_DATA": ["#202020", "#bfbfbf", "#cccccc"]
   }
   
+  
+  show_models = input("Deseja mostrar as paletas disponíveis?, digite y ou n(padrão): ")
+  while show_models not in ["y", "n", ""]:
+    show_models = input("Deseja mostrar as paletas disponíveis?, digite y ou n(padrão): ")
+    
+  if show_models == "y":
+    print("\t" + "\n\t".join(list(thumb_patterns.keys())))
+  
   params = {
     "Assunto ": ["__SUBJECT__", "Afinal, o que é python? Aprenda em menos de 3 minutos!"],
     "Resolução ": ["__RESOLUTION__", "900x800"],
     "Modelo Thumb ": ["__THUMB_PALLETE__", "PURPLE_CYBER"]
   }
   
+  
+  
   for i in params.keys():
+
     p = input(i+f"({params[i][1]}): ")
     
     if params[i][0] != "__THUMB_PALLETE__":

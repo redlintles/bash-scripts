@@ -15,5 +15,3 @@ Observações:
 6- O fundo da imagem deve, obrigatoriamente, possuir a cor __MODEL_BG_COLOR__, para combinar com o fundo da thumbnail.
 
 7- A Imagem deve conter um elemento, arte, ou desenho simples que seja facilmente identificável com o assunto falado no vídeo. o estilo desse elemento deve ser um 2D minimalista e simples, sem degradês.
-
-
